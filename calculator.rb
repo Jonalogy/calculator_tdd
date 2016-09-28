@@ -51,7 +51,7 @@ class Calculator
   def undo
     @undo_switch = true #so that store methods does not work
 
-    action = @history.pop; #puts "Undoing= #{action}"
+    action = @history.pop; puts ">>Undoing= #{action}"
     @undone.push(action.clone); #puts ">>undone = #{@undone}"
 
     val = action.pop
@@ -65,48 +65,52 @@ class Calculator
   end #end undo
 
   def redo
-    to_redo = @undone.pop; #puts "Redoing: #{to_redo}"
-    val = to_redo.pop
-    ops = to_redo.pop
-    if @undone.length===0
-      puts "Nothing to undo"
-    elsif ops=="subtract"
-      operation("subtract",val)
-    elsif ops=="add"
-      operation("add",val)
+    if @undone.length != 0
+        to_redo = @undone.pop; puts ">>Redoing: #{to_redo}"
+
+        val = to_redo.pop
+        ops = to_redo.pop
+
+        if ops=="subtract"
+          operation("subtract",val)
+        elsif ops=="add"
+          operation("add",val)
+        end
+    else
+        puts "Nothing to redo..."
     end
   end#redo
 
 end #end Class
 
-# calc = Calculator.new(20)
-# puts "Starting value = #{calc.result}"
-#
-# calc.add(1)
-# puts "Performed addition of 1, checking result #{calc.result}"
-# puts "Checking history #{calc.history}"
-#
-# calc.subtract(20)
-# puts "Performed subtraction of 20 checking result #{calc.result}"
-# puts "Checking history #{calc.history}"
-#
-# calc.add(5)
-# puts "Performed subtraction of 5 checking result #{calc.result}"
-# puts "Checking history #{calc.history}"
-#
-# calc.undo
-# puts "Checking result #{calc.result}"
-# puts "Checking history #{calc.history}"
-# puts "Checking undone #{calc.undone}"
-#
-# calc.undo
-# puts "Checking result #{calc.result}"
-# puts "Checking history #{calc.history}"
-# puts "Checking undone #{calc.undone}"
-#
-# calc.redo
-# puts "Checking result #{calc.result}"
-# calc.redo
-# puts "Checking result #{calc.result}"
-# calc.redo
-# puts "Checking result #{calc.result}"
+calc = Calculator.new(20)
+puts "Starting value = #{calc.result}"
+
+calc.add(1)
+puts "Performed addition of 1, checking result #{calc.result}"
+puts "Checking history #{calc.history}"
+
+calc.subtract(20)
+puts "Performed subtraction of 20 checking result #{calc.result}"
+puts "Checking history #{calc.history}"
+
+calc.add(5)
+puts "Performed addition of 5 checking result #{calc.result}"
+puts "Checking history #{calc.history}"
+
+calc.undo
+puts "Checking result #{calc.result}"
+puts "Checking history #{calc.history}"
+puts "Checking undone #{calc.undone}"
+
+calc.undo
+puts "Checking result #{calc.result}"
+puts "Checking history #{calc.history}"
+puts "Checking undone #{calc.undone}"
+
+calc.redo
+puts "Checking result #{calc.result}"
+calc.redo
+puts "Checking result #{calc.result}"
+calc.redo
+puts "Checking result #{calc.result}"
