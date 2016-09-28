@@ -117,8 +117,25 @@ describe "9. Undo: my_calculator.undo" do
     calc.subtract(20)
     calc.subtract(20)
     calc.undo
-    calc.undo
     actual = calc.result
-    expect(actual).to eq(90)
+    expect(actual).to eq(30)
   end
 end
+
+describe "10. Redo: my_calculator.redo(x)" do
+
+  it "should redo the previously undone operation, restoring the result value." do
+    calc = Calculator.new(10)
+    calc.subtract(1)
+    calc.add(1)
+    calc.undo
+    calc.redo
+    actual = actual.result
+    expect(actual).to eq(10)
+  end
+
+  # it "should remove the ability to perform redos." do
+  #
+  # end
+  
+end #describe
